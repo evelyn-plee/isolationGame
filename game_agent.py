@@ -38,7 +38,7 @@ def custom_score(game, player):
     """
 
     # TODO: finish this function!
-    raise NotImplementedError
+    minimax(depth);
 
 
 class CustomPlayer:
@@ -116,6 +116,8 @@ class CustomPlayer:
             (-1, -1) if there are no available legal moves.
         """
 
+
+
         self.time_left = time_left
 
         # TODO: finish this function!
@@ -124,11 +126,27 @@ class CustomPlayer:
         # move from the game board (i.e., an opening book), or returning
         # immediately if there are no legal moves
 
+        if not legal_moves:
+            return (-1, -1)
+        elif len(legal_moves):
+            return legal_moves[0]
+
+        depth = 1 if self.iterative else self.search_depth
+
         try:
             # The search method call (alpha beta or minimax) should happen in
             # here in order to avoid timeout. The try/except block will
             # automatically catch the exception raised by the search method
             # when the timer gets close to expiring
+            while True:
+                if self.method == 'minimax':
+                    _, new_move = self.minimax(game, depth);
+                if self.method == 'alphabeta':
+                    _, new_move = self.alphabeta(game, depth);
+                result = new_move
+                depth += 1
+            else:
+                break;
             pass
 
         except Timeout:
