@@ -1,11 +1,3 @@
-"""This file contains all the classes you must complete for this project.
-
-You can use the test cases in agent_test.py to help during development, and
-augment the test suite with your own test cases to further test your code.
-
-You must test your agent's strength against a set of agents with known
-relative strength using tournament.py and include the results in your report.
-"""
 import random
 
 
@@ -13,6 +5,14 @@ class Timeout(Exception):
     """Subclass base exception for code clarity."""
     pass
 
+def heuristic0(game, player):
+    pass
+
+def heuristic1(game, player):
+    pass
+
+def heuristic2(game, player):
+    pass
 
 def custom_score(game, player):
     """Calculate the heuristic value of a game state from the point of view
