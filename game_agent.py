@@ -37,9 +37,27 @@ def custom_score(game, player):
         The heuristic value of the current game state to the specified player.
     """
 
-    # TODO: finish this function!
-    minimax(depth);
+    if game.is_loser(player):
+        return float("-inf")
 
+    if game.is_winner(player):
+        return float("inf")
+
+    occupied_factor = 1
+    if len(game.get_blank_spaces() < game.width * game.height/4):
+        occupied_factor = 4
+
+    corners = [(0,0), ((game.height-1),0), (0,(game.width-1)), ((game.height-1), (game.weight-1))]
+
+    own_moves = game.get_legal_moves(player)
+    opp_moves = game.get_legal_moves(game.get_opponent(player))
+    corners_for_own = [move for move in own_moves if move in corners]
+    corners_for_opp = [move for move in opp_moves if move in corners]
+
+    own_weightage = len(own_moves)-(occupied_factor*len(corners_for_own))
+    opp_weightage = len(opp_moves)-(occupied_factor*len(corners_for_opp))
+
+    return float(own_weightage - opp_weightage)
 
 class CustomPlayer:
     """Game-playing agent that chooses a move using your evaluation function
@@ -115,12 +133,7 @@ class CustomPlayer:
             Board coordinates corresponding to a legal move; may return
             (-1, -1) if there are no available legal moves.
         """
-
-
-
         self.time_left = time_left
-
-        # TODO: finish this function!
 
         # Perform any required initializations, including selecting an initial
         # move from the game board (i.e., an opening book), or returning
